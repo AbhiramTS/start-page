@@ -1,0 +1,36 @@
+:root {
+	--radius: 16px;
+	--radius-sm: 11px;
+	--ease: 0.2s ease;
+	--settings-w: 380px;
+}
+
+body[data-theme="light"] {
+	--glass: rgba(255, 255, 255, 0.52);
+	--glass-h: rgba(255, 255, 255, 0.8);
+	--input-bg: rgba(255, 255, 255, 0.68);
+	--bd: rgba(0, 0, 0, 0.08);
+	--bd-h: rgba(0, 0, 0, 0.2);
+	--text: #181818;
+	--muted: rgba(24, 24, 24, 0.48);
+	--dim: rgba(24, 24, 24, 0.28);
+	--sh: 0 2px 24px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
+	--sh-h: 0 6px 32px rgba(0, 0, 0, 0.12), 0 1px 6px rgba(0, 0, 0, 0.06);
+	--settings-bg: rgba(255, 255, 255, 0.92);
+	--tag-bg: rgba(0, 0, 0, 0.05);
+}
+
+body[data-theme="dark"] {
+	--glass: rgba(12, 12, 16, 0.62);
+	--glass-h: rgba(12, 12, 16, 0.82);
+	--input-bg: rgba(12, 12, 16, 0.68);
+	--bd: rgba(255, 255, 255, 0.09);
+	--bd-h: rgba(255, 255, 255, 0.24);
+	--text: #e6e6ea;
+	--muted: rgba(230, 230, 234, 0.48);
+	--dim: rgba(230, 230, 234, 0.26);
+	--sh: 0 2px 24px rgba(0, 0, 0, 0.45), 0 1px 4px rgba(0, 0, 0, 0.3);
+	--sh-h: 0 6px 32px rgba(0, 0, 0, 0.55), 0 1px 6px rgba(0, 0, 0, 0.35);
+	--settings-bg: rgba(18, 18, 24, 0.96);
+	--tag-bg: rgba(255, 255, 255, 0.06);
+}

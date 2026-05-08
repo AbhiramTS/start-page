@@ -1,0 +1,245 @@
+.search-row {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.s-icon {
+	position: absolute;
+	left: 20px;
+	color: var(--dim);
+	pointer-events: none;
+	display: flex;
+	align-items: center;
+}
+
+#search {
+	width: 100%;
+	height: 60px;
+	padding: 0 160px 0 54px;
+	background: var(--input-bg);
+	backdrop-filter: blur(24px);
+	-webkit-backdrop-filter: blur(24px);
+	border: 1.5px solid var(--bd);
+	border-radius: var(--radius);
+	color: var(--text);
+	font-family: "Outfit", sans-serif;
+	font-size: 17px;
+	font-weight: 300;
+	outline: none;
+	box-shadow: var(--sh);
+	transition:
+		border-color var(--ease),
+		box-shadow var(--ease);
+	caret-color: var(--text);
+}
+
+#search::placeholder {
+	color: var(--dim);
+}
+
+#search:focus {
+	border-color: var(--bd-h);
+	box-shadow: var(--sh-h);
+}
+
+.engines {
+	position: absolute;
+	right: 10px;
+	display: flex;
+	gap: 4px;
+}
+
+.eng {
+	height: 36px;
+	padding: 0 12px;
+	border-radius: var(--radius-sm);
+	border: 1.5px solid transparent;
+	background: transparent;
+	color: var(--muted);
+	font-family: "Outfit", sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	cursor: pointer;
+	letter-spacing: 0.04em;
+	transition: all var(--ease);
+}
+
+.eng:hover {
+	background: var(--glass-h);
+	border-color: var(--bd);
+	color: var(--text);
+}
+
+.eng.on {
+	background: var(--glass-h);
+	border-color: var(--bd-h);
+	color: var(--text);
+	font-weight: 600;
+}
+
+#links-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 10px;
+}
+
+.link-card {
+	display: flex;
+	align-items: center;
+	gap: 11px;
+	padding: 13px 16px;
+	background: var(--glass);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1.5px solid var(--bd);
+	border-radius: var(--radius);
+	text-decoration: none;
+	box-shadow: var(--sh);
+	transition: all var(--ease);
+	overflow: hidden;
+	white-space: nowrap;
+	position: relative;
+}
+
+.link-card:hover {
+	background: var(--glass-h);
+	border-color: var(--bd-h);
+	box-shadow: var(--sh-h);
+	transform: translateY(-2px);
+}
+
+.link-card::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 4px;
+	background: var(--card-color, transparent);
+	border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.card-icon {
+	font-size: 19px;
+	flex-shrink: 0;
+	line-height: 1;
+}
+
+.card-text {
+	overflow: hidden;
+	flex: 1;
+}
+
+.card-name {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--text);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.card-tag {
+	font-size: 10px;
+	color: var(--muted);
+	letter-spacing: 0.04em;
+	margin-top: 1px;
+}
+
+#settings-panel {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: var(--settings-w);
+	background: var(--settings-bg);
+	backdrop-filter: blur(32px);
+	-webkit-backdrop-filter: blur(32px);
+	border-left: 1.5px solid var(--bd);
+	z-index: 100;
+	display: flex;
+	flex-direction: column;
+	transform: translateX(100%);
+	transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+	overflow: hidden;
+}
+
+#settings-panel.open {
+	transform: translateX(0);
+}
+
+.sp-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 22px 24px 16px;
+	border-bottom: 1px solid var(--bd);
+	flex-shrink: 0;
+}
+
+.sp-title {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--text);
+	letter-spacing: 0.01em;
+}
+
+.sp-close {
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: var(--muted);
+	font-size: 20px;
+	line-height: 1;
+	padding: 2px 4px;
+	transition: color var(--ease);
+}
+
+.sp-close:hover {
+	color: var(--text);
+}
+
+.sp-body {
+	overflow-y: auto;
+	flex: 1;
+	padding: 20px 24px 32px;
+}
+
+.sp-body::-webkit-scrollbar {
+	width: 5px;
+}
+
+.sp-body::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.sp-body::-webkit-scrollbar-thumb {
+	background: var(--bd-h);
+	border-radius: 4px;
+}
+
+#overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 99;
+	background: rgba(0, 0, 0, 0.2);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s;
+}
+
+#overlay.show {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.bg-canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	filter: blur(80px);
+	opacity: 0.7;
+}
