@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import type { Theme } from "../types";
 
 interface Blob {
 	x: number;
@@ -11,7 +12,11 @@ interface Blob {
 	color: string;
 }
 
-export const Background = () => {
+interface BackgroundProps {
+	theme: Theme;
+}
+
+export const Background = ({ theme }: BackgroundProps) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
@@ -21,20 +26,22 @@ export const Background = () => {
 		const ctx = canvas.getContext("2d");
 		if (!ctx) return;
 
-		const isDark = document.body.getAttribute("data-theme") === "dark";
+		const isDark = theme === "dark";
 
 		const lightPalette = [
-			"rgba(147, 197, 253, 0.35)",
-			"rgba(196, 181, 253, 0.32)",
-			"rgba(252, 231, 243, 0.38)",
-			"rgba(167, 243, 208, 0.30)",
+			"rgba(96, 165, 250, 0.68)",
+			"rgba(168, 85, 247, 0.60)",
+			"rgba(244, 114, 182, 0.58)",
+			"rgba(56, 189, 248, 0.52)",
+			"rgba(251, 191, 36, 0.42)",
 		];
 
 		const darkPalette = [
-			"rgba(59, 130, 246, 0.45)",
-			"rgba(139, 92, 246, 0.42)",
-			"rgba(236, 72, 153, 0.48)",
-			"rgba(34, 197, 94, 0.40)",
+			"rgba(59, 130, 246, 0.78)",
+			"rgba(139, 92, 246, 0.72)",
+			"rgba(236, 72, 153, 0.74)",
+			"rgba(34, 197, 94, 0.60)",
+			"rgba(14, 165, 233, 0.70)",
 		];
 
 		const palette = isDark ? darkPalette : lightPalette;
@@ -48,17 +55,17 @@ export const Background = () => {
 		window.addEventListener("resize", resizeCanvas);
 
 		const blobs: Blob[] = [];
-		const blobCount = 5;
+		const blobCount = 7;
 
 		for (let i = 0; i < blobCount; i++) {
 			blobs.push({
 				x: Math.random() * canvas.width,
 				y: Math.random() * canvas.height,
-				size: 200 + Math.random() * 300,
+				size: 260 + Math.random() * 360,
 				vx: 0,
 				vy: 0,
 				phase: Math.random() * Math.PI * 2,
-				speed: 0.3 + Math.random() * 0.4,
+				speed: 0.18 + Math.random() * 0.42,
 				color: palette[i % palette.length],
 			});
 		}
@@ -68,14 +75,35 @@ export const Background = () => {
 
 		const animate = () => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.globalCompositeOperation = isDark ? "screen" : "source-over";
 
-			time += 0.008;
+			const baseGradient = ctx.createRadialGradient(
+				canvas.width * 0.5,
+				canvas.height * 0.35,
+				0,
+				canvas.width * 0.5,
+				canvas.height * 0.5,
+				Math.max(canvas.width, canvas.height) * 0.8,
+			);
+			if (isDark) {
+				baseGradient.addColorStop(0, "rgba(15, 23, 42, 0.92)");
+				baseGradient.addColorStop(0.42, "rgba(17, 24, 39, 0.62)");
+				baseGradient.addColorStop(1, "rgba(5, 8, 22, 0.12)");
+			} else {
+				baseGradient.addColorStop(0, "rgba(186, 216, 255, 0.9)");
+				baseGradient.addColorStop(0.42, "rgba(248, 214, 255, 0.76)");
+				baseGradient.addColorStop(1, "rgba(219, 255, 239, 0.42)");
+			}
+			ctx.fillStyle = baseGradient;
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+			time += 0.007;
 
 			blobs.forEach((blob, i) => {
-				const offsetPhase = blob.phase + i * 0.7;
+				const offsetPhase = blob.phase + i * 0.8;
 
-				blob.vx = Math.sin(time * blob.speed + offsetPhase) * 0.5;
-				blob.vy = Math.cos(time * blob.speed * 0.8 + offsetPhase * 1.3) * 0.4;
+				blob.vx = Math.sin(time * blob.speed + offsetPhase) * 0.8;
+				blob.vy = Math.cos(time * blob.speed * 0.82 + offsetPhase * 1.35) * 0.7;
 
 				blob.x += blob.vx;
 				blob.y += blob.vy;
@@ -94,6 +122,7 @@ export const Background = () => {
 					blob.size,
 				);
 				gradient.addColorStop(0, blob.color);
+				gradient.addColorStop(0.45, blob.color.replace(/0\.\d+\)$/, "0.18)"));
 				gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
 
 				ctx.fillStyle = gradient;
@@ -114,7 +143,7 @@ export const Background = () => {
 			window.removeEventListener("resize", resizeCanvas);
 			cancelAnimationFrame(animationId);
 		};
-	}, []);
+	}, [theme]);
 
 	return <canvas ref={canvasRef} className="bg-canvas" aria-hidden="true" />;
 };

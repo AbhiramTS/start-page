@@ -1,4 +1,5 @@
 import type { Link } from "../types";
+import { SiteIcon } from "./SiteIcon";
 
 interface QuickLinksProps {
 	links: Link[];
@@ -32,10 +33,18 @@ export function QuickLinks({ links }: QuickLinksProps) {
 					<a
 						key={link.id}
 						href={link.url}
-						className="link-card"
+						className="link-card has-tooltip"
+						aria-label={`Open ${link.title}`}
+						data-tooltip={`Open ${link.title}`}
 						style={{ "--card-color": getCardColor(index) } as React.CSSProperties}
 					>
-						{link.icon && <span className="card-icon">{link.icon}</span>}
+						<SiteIcon
+							url={link.url}
+							label={link.title}
+							className="card-icon"
+							size={20}
+							fallbackGlyph={link.icon}
+						/>
 						<div className="card-text">
 							<div className="card-name">{link.title}</div>
 							{link.tags && link.tags.length > 0 && (

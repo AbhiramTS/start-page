@@ -28,13 +28,14 @@ function App() {
 
 	return (
 		<>
-			<Background />
+		<Background theme={theme} />
 
 			<div className="topbar">
 				<ThemeToggle theme={theme} onToggle={toggleTheme} />
 				<button
-					className="tb-btn"
-					title="Settings"
+					className="tb-btn has-tooltip"
+					aria-label="Settings"
+					data-tooltip="Settings"
 					onClick={() => setIsSettingsOpen(true)}
 				>
 					⚙
