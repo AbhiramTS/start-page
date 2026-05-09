@@ -6,6 +6,10 @@
 	padding: 0;
 }
 
+:root {
+	--tooltip-font-size: 0.8125em; /* slightly larger tooltip font */
+}
+
 html,
 body {
 	height: 100%;
@@ -119,7 +123,7 @@ body::after {
 }
 
 .links-label {
-	font-size: 11px;
+	font-size: 0.6875em; /* scales with parent font-size from settings */
 	letter-spacing: 0.16em;
 	text-transform: uppercase;
 	color: var(--dim);
@@ -157,6 +161,12 @@ body::after {
 	background: var(--glass-h);
 	border-color: var(--bd-h);
 	color: var(--text);
+}
+
+.tb-btn svg,
+.engine-icon,
+.card-icon {
+	flex-shrink: 0;
 }
 
 .tb-btn svg,

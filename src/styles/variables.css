@@ -44,7 +44,7 @@ body[data-theme="dark"] {
 	--bd: rgba(255, 255, 255, 0.09);
 	--bd-h: rgba(255, 255, 255, 0.24);
 	--text: #e6e6ea;
-	--muted: rgba(230, 230, 234, 0.48);
+	--muted: rgba(245, 245, 249, 0.48);
 	--dim: rgba(230, 230, 234, 0.26);
 	--sh: 0 2px 24px rgba(0, 0, 0, 0.45), 0 1px 4px rgba(0, 0, 0, 0.3);
 	--sh-h: 0 6px 32px rgba(0, 0, 0, 0.55), 0 1px 6px rgba(0, 0, 0, 0.35);
