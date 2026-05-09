@@ -3,6 +3,8 @@ import { SiteIcon } from "./SiteIcon";
 
 interface QuickLinksProps {
 	links: Link[];
+	fontFamily: string;
+	fontSize: number;
 }
 
 const CARD_COLORS = [
@@ -18,13 +20,13 @@ const CARD_COLORS = [
 	"#94a3b8",
 ];
 
-export function QuickLinks({ links }: QuickLinksProps) {
+export function QuickLinks({ links, fontFamily, fontSize }: QuickLinksProps) {
 	const getCardColor = (index: number) => {
 		return CARD_COLORS[index % CARD_COLORS.length];
 	};
 
 	return (
-		<div className="links-block">
+		<div className="links-block" style={{ fontFamily, fontSize }}>
 			<div className="links-header">
 				<div className="links-label">Quick access</div>
 			</div>

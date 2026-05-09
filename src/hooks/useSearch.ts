@@ -1,21 +1,13 @@
 import { useState, useMemo } from "react";
 import type { Link } from "../types";
-
-export interface SearchEngine {
-	name: string;
-	url: string;
-}
-
-const DEFAULT_ENGINES: SearchEngine[] = [
-	{ name: "Google", url: "https://google.com/search?q=" },
-	{ name: "DDG", url: "https://duckduckgo.com/?q=" },
-	{ name: "Bing", url: "https://bing.com/search?q=" },
-];
+import { useSharedPreferences } from "../contexts/PreferencesContext";
 
 export function useSearch(links: Link[]) {
+	const { preferences, updateDefaultSearchEngineIndex } = useSharedPreferences();
+	const engines = preferences.searchEngines;
+	const activeEngine = preferences.defaultSearchEngineIndex;
+
 	const [query, setQuery] = useState("");
-	const [engines] = useState<SearchEngine[]>(DEFAULT_ENGINES);
-	const [activeEngine, setActiveEngine] = useState(0);
 
 	const filteredLinks = useMemo(() => {
 		if (!query.trim()) return links;
@@ -44,7 +36,7 @@ export function useSearch(links: Link[]) {
 		setQuery,
 		engines,
 		activeEngine,
-		setActiveEngine,
+		setActiveEngine: updateDefaultSearchEngineIndex,
 		filteredLinks,
 		handleSearch,
 	};

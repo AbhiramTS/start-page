@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
+import type { DateTimeFormat } from "../types";
 
-export function Clock() {
+interface ClockProps {
+	dateTimeFormat: DateTimeFormat;
+	fontFamily: string;
+	fontSize: number;
+}
+
+export function Clock({ dateTimeFormat, fontFamily, fontSize }: ClockProps) {
 	const [time, setTime] = useState(new Date());
 
 	useEffect(() => {
@@ -16,7 +23,7 @@ export function Clock() {
 			hour: "2-digit",
 			minute: "2-digit",
 			second: "2-digit",
-			hour12: false,
+			hour12: dateTimeFormat === "12h",
 		});
 	};
 
@@ -30,8 +37,10 @@ export function Clock() {
 	};
 
 	return (
-		<div className="clock-block">
-			<div id="clock">{formatTime(time)}</div>
+		<div className="clock-block" style={{ fontFamily }}>
+			<div id="clock" style={{ fontFamily, fontSize }}>
+				{formatTime(time)}
+			</div>
 			<div id="datestr">{formatDate(time)}</div>
 		</div>
 	);

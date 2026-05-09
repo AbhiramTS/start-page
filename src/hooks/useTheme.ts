@@ -1,22 +1,16 @@
-import { useState, useEffect } from "react";
-import type { Theme } from "../types";
+import { useEffect } from "react";
+import { useSharedPreferences } from "../contexts/PreferencesContext";
 
 export function useTheme() {
-	const [theme, setTheme] = useState<Theme>(() => {
-		const stored = localStorage.getItem("theme-preference");
-		if (stored === "light" || stored === "dark") return stored;
-		return window.matchMedia("(prefers-color-scheme: dark)").matches
-			? "dark"
-			: "light";
-	});
+	const { preferences, updateTheme } = useSharedPreferences();
+	const theme = preferences.theme;
 
 	useEffect(() => {
 		document.body.setAttribute("data-theme", theme);
-		localStorage.setItem("theme-preference", theme);
 	}, [theme]);
 
 	const toggleTheme = () => {
-		setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+		updateTheme(theme === "dark" ? "light" : "dark");
 	};
 
 	return { theme, toggleTheme };

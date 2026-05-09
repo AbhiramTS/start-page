@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { SearchEngine } from "../hooks/useSearch";
+import type { SearchEngine } from "../types";
 import { SiteIcon } from "./SiteIcon";
 
 interface SearchBarProps {
@@ -9,6 +9,8 @@ interface SearchBarProps {
 	activeEngine: number;
 	onEngineChange: (index: number) => void;
 	onSubmit: (e: React.FormEvent) => void;
+	fontFamily: string;
+	fontSize: number;
 }
 
 export function SearchBar({
@@ -18,6 +20,8 @@ export function SearchBar({
 	activeEngine,
 	onEngineChange,
 	onSubmit,
+	fontFamily,
+	fontSize,
 }: SearchBarProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const switcherRef = useRef<HTMLDivElement>(null);
@@ -48,7 +52,7 @@ export function SearchBar({
 	const active = engines[activeEngine];
 
 	return (
-		<div className="search-block">
+		<div className="search-block" style={{ fontFamily, fontSize }}>
 			<form className="search-row" onSubmit={onSubmit}>
 				<span className="s-icon" aria-hidden="true">
 					<svg
@@ -74,6 +78,7 @@ export function SearchBar({
 					autoFocus
 					value={query}
 					onChange={(e) => onQueryChange(e.target.value)}
+					style={{ fontFamily, fontSize }}
 				/>
 				<div className="engine-switcher" ref={switcherRef}>
 					<button
