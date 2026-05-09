@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
 	plugins: [react()],
-	base: "/start_page/",
+	base: "/start-page/",
 	server: {
 		watch: {
 			// Use polling to ensure file-change events are reliably detected in shared/mounted filesystems
