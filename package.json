@@ -6,7 +6,7 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"postbuild": "node scripts/inject-build-timestamp.js",
+		"postbuild": "node scripts/inject-build-timestamp.cjs",
 		"release:major": "npm run build && npm version major -m \"chore(release): %s\" && git push && git push --tags",
 		"release:minor": "npm run build && npm version minor -m \"chore(release): %s\" && git push && git push --tags"
 	},
